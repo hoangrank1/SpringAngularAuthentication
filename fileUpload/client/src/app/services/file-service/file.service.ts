@@ -12,7 +12,7 @@ export class FileService {
     private http: HttpClient
   ) { }
 
-  uploadFile(file: File): Observable<number | any> {
+  uploadFile(file: File): Observable<number> {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
@@ -24,15 +24,15 @@ export class FileService {
     );
   }
 
-  private getUploadProgress(event: any): number | any {
+  private getUploadProgress(event: any): number {
     if (event.type === HttpEventType.UploadProgress) {
       const percentDone = Math.round((event.loaded / event.total) * 100);
       return percentDone;
     }
-    return null;
+    return 0;
   }
 
-  getFiles(): Observable<any> {
+  getFiles(): Observable<any[]> {
     return this.http.get<File[]>(this.apiUrl + '/files');
   }
 

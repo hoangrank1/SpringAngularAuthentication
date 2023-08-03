@@ -18,8 +18,7 @@ export class AllFilesComponent {
   }
 
   getFiles(): void {
-    this.fileService.getFiles().subscribe(
-      (response: any[]) => {
+    this.fileService.getFiles().subscribe((response) => {
         response.forEach(element => {
           element.processedImg = 'data:image/jpeg;base64,' + element.data;
           this.files.push(element);
@@ -35,21 +34,17 @@ export class AllFilesComponent {
   downloadFile(fileId: number): void {
     this.fileService.downloadFile(fileId).subscribe(response => {
       const fileNameFromUrl = "file";
-      if (fileNameFromUrl) {
-        const contentType = response.headers.get("Content-Type");
-        //const blob = new Blob([response.body], { type: contentType });
+      const contentType: any = response.headers.get("Content-Type");
+      const blob = new Blob([response.body], { type: contentType });
 
-        const link = document.createElement("a");
-        //link.href = window.URL.createObjectURL(blob);
-        link.download = fileNameFromUrl;
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileNameFromUrl;
 
-        link.click();
+      link.click();
 
-        window.URL.revokeObjectURL(link.href);
-        link.remove();
-      } else{
-        console.log("Unable to extract file")
-      }
+      window.URL.revokeObjectURL(link.href);
+      link.remove();
     })
   }
 }

@@ -10,7 +10,9 @@ export class UploadFileComponent {
   selectedFile: any | File;
   uploadProgress: any | number;
 
-  constructor(private fileUploadService: FileService) { }
+  constructor(
+    private fileUploadService: FileService
+  ) { }
 
   onFileSelected(event: any): void {
     const fileList: FileList = event.target.files;
