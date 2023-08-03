@@ -1,0 +1,29 @@
+<div class="container" *ngIf="users">
+  <h2>All Users</h2>
+
+  <button class="update-button" routerLink="/user">Add User</button>
+
+  <table class="user-table">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let user of users">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                  <button class="update-button" routerLink="/user/{{user.id}}">Update</button>
+                  <button class="delete-button" (click)="deleteUser(user.id)">Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+  <ng-template #emptyState>
+  </ng-template>
+</div>
